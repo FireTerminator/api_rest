@@ -7,11 +7,11 @@ const pool = require('../database/index');
 router.use(function(req,res,next){
     next();
 })
-
+/*
 router.get('/',(req,res)=>{
     res.send('rota do produto');
 })
-
+*/
 
 
 

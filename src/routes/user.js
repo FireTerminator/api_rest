@@ -53,16 +53,22 @@ router.post('/', (req,response)=>{
        
     }
         const date = new Date();
-        var hash = bcrypt.hashSync(password, 10);
-
-        pool.query('INSERT INTO users(name,password,email, date) values($1,$2,$3,$4)',
-        [name, hash, email, date], (err,res)=>{
-          if (err) {
-              return  console.log(err.stack)
-            } else {
-                return response.status(200).send({message: 'registrado com sucesso'})
-            }
+        
+        bcrypt.hash(password, 10).then(function(hash) {
+          // Store hash in your password DB.
+      
+ 
+          pool.query('INSERT INTO users(name,password,email, date) values($1,$2,$3,$4)',
+          [name, hash, email, date], (err,res)=>{
+            if (err) {
+                return  console.log(err.stack)
+              } else {
+                  return response.status(200).send({message: 'registrado com sucesso'})
+              }
+          });
         });
+        
+
   })
 })
 
